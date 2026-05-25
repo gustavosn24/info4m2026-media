@@ -1,6 +1,6 @@
 <div class="container">
   <h1>Calculadora de Média</h1>
-  <p>insira suas notas para o calculo!</p>
+  <p>Insira suas notas para o cálculo!</p>
 
   <div class="field">
     <label>Bimestre 1</label>
@@ -23,27 +23,40 @@
     Calcular Média Parcial
   </button>
 
-  @if (mediaParcial !== undefined) {
-    <p class="media">Média parcial: <strong>{{ mediaParcial.toFixed(2) }}</strong></p>
+ @if (mediaParcial !== undefined) {
+  <p class="media">Média parcial: <strong>{{ mediaParcial.toFixed(2) }}</strong></p>
 
-    @if (mediaParcial < 7) {
-      <div class="field">
-        <label>Avaliação Final</label>
-        <input type="number" #af>
-      </div>
+  @if (mediaParcial >= 60) {
+    <p class="situacao aprovado">Aprovado</p>
 
-      <button (click)="calcularMediaFinal(+af.value)">
-        Calcular Média Final
-      </button>
+  } @else {
+    <p class="info">
+      Para ser aprovado, você precisa tirar no mínimo 
+      <strong>{{ notaNecessaria().toFixed(2) }}</strong> na Avaliação Final.
+    </p>
 
-      @if (mediaFinal !== undefined) {
-        <p class="media">Média final: <strong>{{ mediaFinal.toFixed(2) }}</strong></p>
-        <p class="situacao" [class.aprovado]="situacao === 'Aprovado'" [class.reprovado]="situacao === 'Reprovado'">
-          {{ situacao }}
-        </p>
-      }
-    } @else {
-      <p class="situacao aprovado">Aprovado</p>
-    }
+    <div class="field">
+      <label>Avaliação Final</label>
+      <input type="number" #af>
+    </div>
+    <button (click)="calcularMediaFinal(+af.value)">
+      Calcular Média Final
+    </button>
+
+    @if (mediaFinal !== undefined) {
+  <p class="media">Média final: <strong>{{ mediaFinal.toFixed(2) }}</strong></p>
+
+  @if (situacao === 'Reprovado') {
+    <p class="info reprovado-info">
+      Você precisava de <strong>{{ notaNecessaria().toFixed(2) }}</strong> 
+      e ficou com <strong>{{ mediaFinal.toFixed(2) }}</strong> na média final.
+    </p>
   }
+
+  <p class="situacao" [class.aprovado]="situacao === 'Aprovado'" [class.reprovado]="situacao === 'Reprovado'">
+    {{ situacao }}
+  </p>
+}
+  }
+}
 </div>

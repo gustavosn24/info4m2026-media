@@ -24,9 +24,14 @@ export class CalculaMedia {
   }
 
   calcularMediaFinal(af: number): void {
-    if (this.mediaParcial !== undefined) {
-      this.mediaFinal = (this.mediaParcial + af) / 2;
-      this.situacao = this.mediaFinal >= 6 ? 'Aprovado' : 'Reprovado';
-    }
+    if (this.mediaParcial === undefined) return;
+    this.mediaFinal = (this.mediaParcial + af) / 2;
+    this.situacao = this.mediaFinal >= 60 ? 'Aprovado' : 'Reprovado';
   }
+
+  notaNecessaria(): number {
+  if (this.mediaParcial === undefined) return 0;
+  const necessaria = 120 - this.mediaParcial;
+  return Math.min(necessaria, 100);
+}
 }
