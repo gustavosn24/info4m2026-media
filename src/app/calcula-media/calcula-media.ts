@@ -18,7 +18,6 @@ export class CalculaMedia {
     this.mediaFinal = undefined;
     this.situacao = undefined;
 
-    // Já define situação se não precisar de AF
     if (this.mediaParcial >= 7) {
       this.situacao = 'Aprovado';
     }
